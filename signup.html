@@ -19,9 +19,17 @@
             transform: translate(-50%, -50%);
             padding: 5px;
             height: 350px;
-            width: 400px;
+            width: 360px;
             border-radius: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        @media screen and (max-width:320px) {
+            #signup-div{
+                width: 300px;
+            }
+            #semail,#spassward{
+                width: 180px;
+            }
         }
         #semail,#spassward{
             border: none;
@@ -46,7 +54,7 @@
             </tr>
         </table><br>
         
-        <button  class="btn btn-warning" onclick="signUpAdmin()">Signup as a Admin</button> --OR-- <button class="btn btn-warning" onclick="signUpUser()">SignIn as customer</button>
+        <button  class="btn btn-warning" onclick="signUpAdmin()">Signup as a Admin</button> --OR-- <br><br><button class="btn btn-warning" onclick="signUpUser()">SignIn as customer</button>
         
     </div>
     <script src="login&signup.js"></script>
