@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+   
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.cart {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.cart h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-item p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.cart-item .item-details {
+    flex: 1;
+}
+
+.cart-item .item-price {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+#total-price {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.buttons a {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buttons a:hover {
+    background-color: #0077A3;
+}
+.h2main{
+  color: rgb(172, 115, 124);
+}
+
+    </style>
+</head>
+<body>
+    <div class="cart">
+        <h2 class="h2main">Payment</h2>
+        <div id="cart-items">
+          
+        </div>
+        <div id="total-price">Total Price: Rs 0</div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+
+            const selectedItemsJson = localStorage.getItem('selectedItems');
+            const selectedItems = JSON.parse(selectedItemsJson);
+
+            const itemData = {
+                '1': { name: 'Item 1', price: 310 },
+                '2': { name: 'Item 2', price: 280 },
+                '3': { name: 'Item 3', price: 940 },
+                '4': { name: 'Item 4', price: 410 },
+                '5': { name: 'Item 5', price: 2400 },
+                '6': { name: 'Item 6', price: 380 },
+                '7': { name: 'Item 7', price: 1900 },
+                '8': { name: 'Item 8', price: 3400 }
+
+
+            };
+
+           
+            selectedItems.forEach(itemId => {
+                const item = itemData[itemId];
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <p>${item.name}</p>
+                    <p>Price: Rs ${item.price}</p>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+            });
+
+            const totalPrice = selectedItems.reduce((total, itemId) => {
+                return total + itemData[itemId].price;
+            }, 0);
+
+            totalPriceElement.textContent = `Total Price: Rs ${totalPrice}`;
+        });
+    </script>
+</body>
+</html>

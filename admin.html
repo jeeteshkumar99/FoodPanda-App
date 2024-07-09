@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <style>
+        .admin-page {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <div class="admin-page">
+        <h2>Add New Item</h2>
+        <form id="addItemForm">
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName" required><br><br>
+    
+            <label for="itemDescription">Item Description:</label><br>
+            <textarea id="itemDescription" rows="4" required></textarea><br><br>
+    
+            <label for="itemPrice">Item Price ($):</label>
+            <input type="number" id="itemPrice" step="0.01" required><br><br>
+    
+            <label for="itemImage">Image URL:</label>
+            <input type="text" id="itemImage" required><br><br>
+    
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const addItemForm = document.getElementById('addItemForm');
+
+    addItemForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const itemName = document.getElementById('itemName').value.trim();
+        const itemDescription = document.getElementById('itemDescription').value.trim();
+        const itemPrice = parseFloat(document.getElementById('itemPrice').value);
+        const itemImage = document.getElementById('itemImage').value.trim();
+
+        if (itemName === '' || itemDescription === '' || isNaN(itemPrice) || itemImage === '') {
+            alert('Please fill out all fields correctly.');
+            return;
+        }
+        const itemId = Date.now().toString();
+
+        // Create new card HTML
+        const newCardHTML = `
+            <div class="card" data-id="${itemId}">
+                <img src="${itemImage}" alt="${itemName}">
+                <h3>${itemName}</h3>
+                <p>${itemDescription}</p>
+                <p>Price: $${itemPrice.toFixed(2)}</p>
+                <button class="add-to-cart-btn">Add to Cart</button>
+            </div>
+        `;
+
+        
+        const cardsContainer = document.querySelector('.cards-container');
+        cardsContainer.innerHTML += newCardHTML;
+
+        
+        addItemForm.reset();
+
+        alert('Item added successfully!');
+    });
+});
+
+    </script>
+    <script src="admin.js"></script>
+</body>
+</html>
